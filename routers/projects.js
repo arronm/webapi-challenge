@@ -2,6 +2,7 @@ const express = require('express');
 
 const db = require('../data/helpers/projectModel');
 const validateProjectId = require('../middleware/validateProjectId');
+const validateProject = require('../middleware/validateProject');
 
 const router = express.Router();
 router.use(express.json());
@@ -21,7 +22,7 @@ router.get('/', async (req, res) => {
 });
 
 // projects/:id
-router.get('/:id', validateProjectId, async (req, res) => {
+router.get('/:id', validateProjectId, (req, res) => {
   try {
     res.json(req.project);
   } catch (error) {
@@ -33,7 +34,7 @@ router.get('/:id', validateProjectId, async (req, res) => {
 });
 
 // projects/:id/actions
-router.get('/:id/actions', validateProjectId, async (req, res) => {
+router.get('/:id/actions', validateProjectId, (req, res) => {
   try {
     res.json(req.project.actions);
   } catch (error) {
@@ -46,9 +47,11 @@ router.get('/:id/actions', validateProjectId, async (req, res) => {
 
 // POST
 // projects
-router.post('/', async (req, res) => {
+router.post('/', validateProject, async (req, res) => {
   try {
-
+    res.json({
+      message: 'success',
+    });
   } catch (error) {
     console.log(error);
     res.status(500).json({
