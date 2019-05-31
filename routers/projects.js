@@ -79,9 +79,12 @@ router.post('/:id/actions', validateProjectId, validateAction, async (req, res) 
 
 // PUT
 // projects/:id
-router.put('/:id', async (req, res) => {
+// NOTE: This really should be a PATCH method with how the DAO is set up
+router.put('/:id', validateProjectId, async (req, res) => {
   try {
-
+    const project = await db.update(req.project.id, req.body);
+    // null case should be handled in validateProject id so project should never be null
+    res.json(project);
   } catch (error) {
     console.log(error);
     res.status(500).json({
