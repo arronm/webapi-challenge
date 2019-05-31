@@ -38,7 +38,8 @@ router.get('/:id', validateActionId, async (req, res) => {
 // actions/:id
 router.put('/:id', validateActionId, async (req, res) => {
   try {
-    
+    const action = await db.update(req.action.id, req.body);
+    res.json(action);
   } catch (error) {
     const hash = Math.random().toString(36).substring(2);
     console.log(`${hash}: ${error}`);
