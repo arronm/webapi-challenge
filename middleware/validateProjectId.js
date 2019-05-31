@@ -1,20 +1,20 @@
-const db = require('../users/userDb');
+const db = require('../data/helpers/projectModel');
 
 const validateProjectId = async (req, res, next) => {
   try {
-    const user = await db.getById(req.params.id);
+    const project = await db.get(req.params.id);
 
-    if (!user) return res.status(400).json({
-      message: 'invalid user id.',
+    if (!project) return res.status(400).json({
+      message: 'invalid project id.',
     });
 
-    req.user = user;
+    req.project = project;
 
     next();
   } catch (error) {
     console.log(error);
     res.status(500).json({
-      message: 'Unknown server error',
+      message: 'Unknown Server Error',
     });
   }
 }
