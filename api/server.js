@@ -19,6 +19,10 @@ server.get('/', async (req, res) => {
   res.send('Api is working');
 });
 
+// project router
 server.use('/api/projects', projectRouter);
+
+// action router
+
 
 module.exports = server;

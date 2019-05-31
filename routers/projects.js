@@ -16,9 +16,10 @@ router.get('/', async (req, res) => {
     const projects = await db.get();
     res.json(projects);
   } catch (error) {
-    console.log(error);
+    const hash = Math.random().toString(36).substring(2);
+    console.log(`${hash}: ${error}`);
     res.status(500).json({
-      message: 'Unknown Server Error',
+      message: `Unknown Server Error: Reference ${hash}`,
     });
   }
 });
@@ -28,9 +29,10 @@ router.get('/:id', validateProjectId, (req, res) => {
   try {
     res.json(req.project);
   } catch (error) {
-    console.log(error);
+    const hash = Math.random().toString(36).substring(2);
+    console.log(`${hash}: ${error}`);
     res.status(500).json({
-      message: 'Unknown Server Error',
+      message: `Unknown Server Error: Reference ${hash}`,
     });
   }
 });
@@ -40,9 +42,10 @@ router.get('/:id/actions', validateProjectId, (req, res) => {
   try {
     res.json(req.project.actions);
   } catch (error) {
-    console.log(error);
+    const hash = Math.random().toString(36).substring(2);
+    console.log(`${hash}: ${error}`);
     res.status(500).json({
-      message: 'Unknown Server Error',
+      message: `Unknown Server Error: Reference ${hash}`,
     });
   }
 });
@@ -54,9 +57,10 @@ router.post('/', validateProject, async (req, res) => {
     const project = await db.insert(req.body);
     res.status(201).json(project);
   } catch (error) {
-    console.log(error);
+    const hash = Math.random().toString(36).substring(2);
+    console.log(`${hash}: ${error}`);
     res.status(500).json({
-      message: 'Unknown Server Error',
+      message: `Unknown Server Error: Reference ${hash}`,
     });
   }
 });
@@ -70,9 +74,10 @@ router.post('/:id/actions', validateProjectId, validateAction, async (req, res) 
     });
     res.status(201).json(action);
   } catch (error) {
-    console.log(error);
+    const hash = Math.random().toString(36).substring(2);
+    console.log(`${hash}: ${error}`);
     res.status(500).json({
-      message: 'Unknown Server Error',
+      message: `Unknown Server Error: Reference ${hash}`,
     });
   }
 });
@@ -86,9 +91,10 @@ router.put('/:id', validateProjectId, async (req, res) => {
     // null case should be handled in validateProject id so project should never be null
     res.json(project);
   } catch (error) {
-    console.log(error);
+    const hash = Math.random().toString(36).substring(2);
+    console.log(`${hash}: ${error}`);
     res.status(500).json({
-      message: 'Unknown Server Error',
+      message: `Unknown Server Error: Reference ${hash}`,
     });
   }
 });
@@ -97,12 +103,13 @@ router.put('/:id', validateProjectId, async (req, res) => {
 // projects/:id
 router.delete('/:id', validateProjectId, async (req, res) => {
   try {
-    const records = await db.remove(req.project.id);
+    await db.remove(req.project.id);
     res.json(req.project);
   } catch (error) {
-    console.log(error);
+    const hash = Math.random().toString(36).substring(2);
+    console.log(`${hash}: ${error}`);
     res.status(500).json({
-      message: 'Unknown Server Error',
+      message: `Unknown Server Error: Reference ${hash}`,
     });
   }
 });
