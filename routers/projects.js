@@ -95,9 +95,10 @@ router.put('/:id', validateProjectId, async (req, res) => {
 
 // DELETE
 // projects/:id
-router.delete('/:id', async (req, res) => {
+router.delete('/:id', validateProjectId, async (req, res) => {
   try {
-
+    const records = await db.remove(req.project.id);
+    res.json(req.project);
   } catch (error) {
     console.log(error);
     res.status(500).json({
