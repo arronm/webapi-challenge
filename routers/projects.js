@@ -23,8 +23,7 @@ router.get('/', async (req, res) => {
 // projects/:id
 router.get('/:id', validateProjectId, async (req, res) => {
   try {
-    const project = await db.get(req.project.id);
-    res.json(project);
+    res.json(req.project);
   } catch (error) {
     console.log(error);
     res.status(500).json({
@@ -34,9 +33,9 @@ router.get('/:id', validateProjectId, async (req, res) => {
 });
 
 // projects/:id/actions
-router.get('/:id/actions', async (req, res) => {
+router.get('/:id/actions', validateProjectId, async (req, res) => {
   try {
-
+    res.json(req.project.actions);
   } catch (error) {
     console.log(error);
     res.status(500).json({
