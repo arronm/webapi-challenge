@@ -1,6 +1,8 @@
 const express = require('express');
 
 const db = require('../data/helpers/projectModel');
+const validateProjectId = require('../middleware/validateProjectId');
+
 const router = express.Router();
 router.use(express.json());
 
@@ -19,9 +21,10 @@ router.get('/', async (req, res) => {
 });
 
 // projects/:id
-router.get('/:id', async (req, res) => {
+router.get('/:id', validateProjectId, async (req, res) => {
   try {
-
+    const project = await db.get(req.project.id);
+    res.json(project);
   } catch (error) {
     console.log(error);
     res.status(500).json({
