@@ -2,6 +2,7 @@ const express = require('express');
 const helmet = require('helmet');
 
 const projectRouter = require('../routers/projects');
+const actionRouter = require('../routers/actions');
 
 const server = express();
 
@@ -23,6 +24,6 @@ server.get('/', async (req, res) => {
 server.use('/api/projects', projectRouter);
 
 // action router
-
+server.use('/api/actions', actionRouter);
 
 module.exports = server;
