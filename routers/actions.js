@@ -34,32 +34,33 @@ router.get('/:id', validateActionId, async (req, res) => {
   }
 });
 
-// // PUT
-// // actions/:id
-// router.get('/', validateActionId, async (req, res) => {
-//   try {
+// PUT
+// actions/:id
+router.put('/:id', validateActionId, async (req, res) => {
+  try {
     
-//   } catch (error) {
-//     const hash = Math.random().toString(36).substring(2);
-//     console.log(`${hash}: ${error}`);
-//     res.status(500).json({
-//       message: `Unknown Server Error: Reference ${hash}`,
-//     });
-//   }
-// });
+  } catch (error) {
+    const hash = Math.random().toString(36).substring(2);
+    console.log(`${hash}: ${error}`);
+    res.status(500).json({
+      message: `Unknown Server Error: Reference ${hash}`,
+    });
+  }
+});
 
-// // DELETE
-// // actions/:id
-// router.get('/', validateActionId, async (req, res) => {
-//   try {
-    
-//   } catch (error) {
-//     const hash = Math.random().toString(36).substring(2);
-//     console.log(`${hash}: ${error}`);
-//     res.status(500).json({
-//       message: `Unknown Server Error: Reference ${hash}`,
-//     });
-//   }
-// });
+// DELETE
+// actions/:id
+router.delete('/:id', validateActionId, async (req, res) => {
+  try {
+    await db.remove(req.action.id);
+    res.json(req.action);
+  } catch (error) {
+    const hash = Math.random().toString(36).substring(2);
+    console.log(`${hash}: ${error}`);
+    res.status(500).json({
+      message: `Unknown Server Error: Reference ${hash}`,
+    });
+  }
+});
 
 module.exports = router;
