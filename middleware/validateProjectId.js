@@ -12,9 +12,10 @@ const validateProjectId = async (req, res, next) => {
 
     next();
   } catch (error) {
-    console.log(error);
+    const hash = Math.random().toString(36).substring(2);
+    console.log(`${hash}: ${error}`);
     res.status(500).json({
-      message: 'Unknown Server Error',
+      message: `Unknown Server Error: Reference ${hash}`,
     });
   }
 }

@@ -49,9 +49,8 @@ router.get('/:id/actions', validateProjectId, (req, res) => {
 // projects
 router.post('/', validateProject, async (req, res) => {
   try {
-    res.json({
-      message: 'success',
-    });
+    const project = await db.insert(req.body);
+    res.status(201).json(project);
   } catch (error) {
     console.log(error);
     res.status(500).json({
