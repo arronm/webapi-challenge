@@ -1,8 +1,10 @@
 const express = require('express');
 
 const db = require('../data/helpers/projectModel');
+const actionDB = require('../data/helpers/actionModel');
 const validateProjectId = require('../middleware/validateProjectId');
 const validateProject = require('../middleware/validateProject');
+const validateAction = require('../middleware/validateAction');
 
 const router = express.Router();
 router.use(express.json());
@@ -60,9 +62,13 @@ router.post('/', validateProject, async (req, res) => {
 });
 
 // projects/:id/actions
-router.post('/:id/actions', async (req, res) => {
+router.post('/:id/actions', validateProjectId, validateAction, async (req, res) => {
   try {
-
+    const action = await actionDB.insert({
+      ...req.body,
+      project_id: req.project.id,
+    });
+    res.status(201).json(action);
   } catch (error) {
     console.log(error);
     res.status(500).json({

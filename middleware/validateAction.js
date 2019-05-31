@@ -3,19 +3,11 @@ const validateAction = async (req, res, next) => {
     if (Object.keys(req.body).length == 0) return res.status(400).json({
       message: 'missing post data'
     });
-  
-    if (!req.body.text) return res.status(400).json({
-      message: 'missing required text field'
+
+    if (!req.body.description || !req.body.notes) return res.status(400).json({
+      message: `missing required ${!req.body.description ? 'description' : 'notes'} field`
     });
-  
-    // const user = await userDB.getById(req.params.id);
-  
-    // if (!user) return res.status(400).json({
-    //   message: 'invalid user id',
-    // });
-  
-    // req.user = user;
-  
+
     next();
   } catch (error) {
     const hash = Math.random().toString(36).substring(2);
